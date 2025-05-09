@@ -10,4 +10,21 @@ getContent()
 const keywordSearch = async(keyword) => {
     const places = await getContent();
     const lowerKeyword = keyword.toLowerCase();
+    let location;
+    const targetDiv = document.getElementById("recommendations");
+    if(lowerKeyword.includes("beach")){
+        location = places.beaches;
+    }else if(lowerKeyword.includes("countries") || lowerKeyword.includes("country")){
+        location = places.countries;
+    }else if(lowerKeyword.includes("temple")){
+        location = places.temples;
+    }
+    if(location){
+        targetDiv.innerHTML = `${location.array.forEach(element => {
+            (<div>
+                <img src={element.imageUrl} />
+                <p>{element.name}</p>
+            </div>)
+        })}`
+    }
 }
