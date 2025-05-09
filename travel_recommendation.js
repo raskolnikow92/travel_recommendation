@@ -5,8 +5,6 @@ const getContent = async() => {
     return res;
 }
 
-getContent()
-
 const keywordSearch = async(keyword) => {
     const places = await getContent();
     const lowerKeyword = keyword.toLowerCase();
@@ -20,11 +18,18 @@ const keywordSearch = async(keyword) => {
         location = places.temples;
     }
     if(location){
-        targetDiv.innerHTML = `${location.array.forEach(element => {
-            (<div>
-                <img src={element.imageUrl} />
-                <p>{element.name}</p>
-            </div>)
-        })}`
+        targetDiv.innerHTML = location.map(element => {
+            return `<div>
+            <img src=${element.imageUrl} />
+            <p>${element.name}</p>
+        </div>`  
+        }).join("")
     }
 }
+
+const searchButton = document.getElementById("submitBtn");
+const searchHandler = (event => {
+    event.preventDefault();
+    keywordSearch(document.getElementById("searchInput").value);
+})
+searchButton.onclick = searchHandler;
