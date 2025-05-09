@@ -18,6 +18,7 @@ const keywordSearch = async(keyword) => {
         location = places.temples;
     }
     if(location){
+        targetDiv.innerHTML = "";
         targetDiv.innerHTML = location.map(element => {
             return `<div>
             <img class="img-thumbnail" src=${element.imageUrl} />
